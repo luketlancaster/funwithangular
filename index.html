@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en-US" ng-app="friends">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Title</title>
+    <link rel="stylesheet" type="text/css" href="bower_components/foundation/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="css/cssshake.min.css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <div class="container" ng-controller="FriendsController as friends">
+      New Friend: <input ng-model="friends.newFriendName">
+      <button class="shake warning" ng-click="friends.data.push(newFriendName)">Save</button>
+      <button class="shake shake-slow success" ng-click="friendReverse = !friendReverse">{{'Sort All Muh Friends!!!'}}</button>
+      <div class="helloFriends" ng-repeat="name in friends.data | filter:friendFilterQuery | orderBy:'':friendReverse">
+        <button class="alert shake shake-hard" ng-click="friends.removeFriend(name)">Remove?!?</button>
+        <h1 style="display: inline" class="shake shake-opacity">Hello {{name | uppercase}}</h1>
+      </div>
+      Search: <input ng-model="friendFilterQuery">
+    </div>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
