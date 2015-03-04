@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-US" ng-app="friends">
+<html lang="en-US" ng-app="tas">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,16 +14,49 @@
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <div class="container" ng-controller="FriendsController as friends">
-      New Friend: <input ng-model="friends.newFriendName">
-      <button class="shake warning" ng-click="friends.data.push(newFriendName)">Save</button>
-      <button class="shake shake-slow success" ng-click="friendReverse = !friendReverse">{{'Sort All Muh Friends!!!'}}</button>
-      <div class="helloFriends" ng-repeat="name in friends.data | filter:friendFilterQuery | orderBy:'':friendReverse">
-        <button class="alert shake shake-hard" ng-click="friends.removeFriend(name)">Remove?!?</button>
-        <h1 style="display: inline" class="shake shake-opacity">Hello {{name | uppercase}}</h1>
-      </div>
+    <div class="container" ng-controller="TasController as tas">
+      <h1>My TAddress Book</h1>
+      <h2>New TA:</h2>
+      <form name="tas.newTA" ng-submit="tas.addTA()">
+        <label>First Name</label>
+        <input ng-model="tas.newTA.firstName">
+        <label>Last Name</label>
+        <input ng-model="tas.newTA.lastName">
+        <label>Name Name</label>
+        <input ng-model="tas.newTA.name">
+        <label>Nick Name</label>
+        <input ng-model="tas.newTA.nickName">
+        <input type="submit" value="Save">
+      </form>
+      <br>
       Search: <input ng-model="friendFilterQuery">
+      Sort:
+      <button ng-click="friendReverse=!friendReverse">Change Sort</button>
+      <br>
+      <table>
+        <thead>
+          <tr>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Name Name</td>
+            <td>Nick Name</td>
+            <td>Don't Click</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr lass="hellofriends" ng-repeat="person in tas.data
+         | filter:friendFilterQuery
+         | orderBy:['current', '-nickName']:friendReverse">
+            <td>{{person.firstName}}</td>
+            <td>{{person.lastName}}</td>
+            <td>{{person.name}}</td>
+            <td>{{person.nickName}}</td>
+            <td><button class="warning" ng-click="tas.removeTA(person)">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="js/main.js"></script>
   </body>
