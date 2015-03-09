@@ -22,7 +22,7 @@
         <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
           <label class="control-label">First Name</label>
           <input class="form-control" ng-model="tas.newTA.firstName" required minlength=4>
-          <span class="help-block" ng-show="tastas.newTAForm.$invalid && tas.newTAForm.$dirty">Nope. Not good enough</span>
+          <span class="help-block" ng-show="tas.newTAForm.$invalid && tas.newTAForm.$dirty">Nope. Not good enough</span>
         </div>
         <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
           <label class="control-label">Last Name</label>
@@ -79,14 +79,17 @@
         <tbody>
           <tr class="hellofriends" ng-repeat="(id, person) in tas.data
          | filter:friendFilterQuery
-         | orderBy:['current', '-nickName']:friendReverse">
-            <td>{{person.firstName}}</td>
+         | orderBy:['-nickName']:friendReverse">
+            <td>
+              <span ng-hide="tas[id].editing" ng-dblclick="tas.editTA(person)">{{person.firstName}}</span>
+              <input ng-show="tas[id].editing" ng-model="person.firstName">
+            </td>
             <td>{{person.lastName}}</td>
             <td>{{person.name}}</td>
             <td>{{person.nickName}}</td>
             <td>{{person.cohort}}</td>
             <td><button class="btn-primary" ng-click="tas.removeTA(id)">Remove</button></td>
-            <td><input class="checkbox" type="checkbox" ng-checked={{person.current}}></td>
+            <td><input class="checkbox" type="checkbox" ng-change="tas.updateTA(id)" ng-model="person.current"></td>
           </tr>
         </tbody>
       </table>

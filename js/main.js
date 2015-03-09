@@ -23,11 +23,9 @@ angular
         .success(function (data) {
           vm.data[data.name] = vm.newTA;
           _clearNewTA();
-        })
-      ;
-
-
+        });
     };
+
 
     function _clearNewTA() {
       vm.newTA = {};
@@ -42,6 +40,17 @@ angular
          .success(function (){
           delete vm.data[id];
          });
+       };
+
+
+    vm.updateTA = function (id) {
+      var url = 'https://angularz.firebaseio.com/tas/' + id +'/.json';
+      $http
+        .put(url, vm.data[id]);
     };
 
-  });
+    vm.editTA = function (person) {
+      vm.editing = person;
+    };
+
+});
