@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Title</title>
+    <title>TA List</title>
+    <link rel="shortcut icon" href="./ico_sys_netconnections.ico">
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/cssshake.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -17,26 +18,26 @@
     <div class="container" ng-controller="TasController as tas">
       <h1>My TAddress Book</h1>
       <h2>New TA:</h2>
-      <form class="form" name="tas.newTA" ng-submit="tas.addTA()" novalidate>
-        <div class="form-group" ng-class="{'has-error': tas.newTA.$dirty}">
+      <form class="form" name="tas.newTAForm" ng-submit="tas.addTA()" novalidate>
+        <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
           <label class="control-label">First Name</label>
           <input class="form-control" ng-model="tas.newTA.firstName" required minlength=4>
-          <span class="help-block" ng-show="tas.newTA.$invalid && tas.newTA.$dirty">Nope. Not good enough</span>
+          <span class="help-block" ng-show="tastas.newTAForm.$invalid && tas.newTAForm.$dirty">Nope. Not good enough</span>
         </div>
-        <div class="form-group" ng-class="{'has-error': tas.newTA.$dirty}">
+        <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
           <label class="control-label">Last Name</label>
           <input class="form-control" ng-model="tas.newTA.lastName" required>
         </div>
-        <div class="form-group" ng-class="{'has-error': tas.newTA.$dirty}">
+        <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
           <label class="control-label">Name Name</label>
           <input class="form-control" ng-model="tas.newTA.name" required>
         </div>
-        <div class="form-group" ng-class="{'has-error': tas.newTA.$dirty}">
+        <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
           <label class="control-label">Nick Name</label>
           <input class="form-control" ng-model="tas.newTA.nickName" required>
-          <span class="help-block" ng-show="tas.newTA.lastName.$error && tas.newTA.$dirty">Provide a nick name</span>
+          <span class="help-block" ng-show="tas.newTAForm.lastName.$error && tas.newTAForm.$dirty">Provide a nick name</span>
         </div>
-        <div class="form-group" ng-class="{'has-error': tas.newTA.$dirty}">
+        <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
           <label class="control-label">Current?
             <input class="checkbox" type="checkbox" ng-model="tas.newTA.current">
           </label>
@@ -56,7 +57,7 @@
             <option value=10>Ten</option>
           </select>
         </div>
-        <input class="btn" type="submit" value="Save" ng-disabled="tas.newTA.$invalid" ng-class="{'btn-danger': tas.newTA.$invalid, 'btn-success': tas.newTA.$valid}">
+        <input class="btn" type="submit" value="Save" ng-disabled="tas.newTAForm.$invalid" ng-class="{'btn-danger': tas.newTAForm.$invalid, 'btn-success': tas.newTAForm.$valid}">
       </form>
       <br>
       Search: <input ng-model="friendFilterQuery">
@@ -76,7 +77,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="hellofriends" ng-repeat="person in tas.data
+          <tr class="hellofriends" ng-repeat="(id, person) in tas.data
          | filter:friendFilterQuery
          | orderBy:['current', '-nickName']:friendReverse">
             <td>{{person.firstName}}</td>
@@ -84,7 +85,7 @@
             <td>{{person.name}}</td>
             <td>{{person.nickName}}</td>
             <td>{{person.cohort}}</td>
-            <td><button class="btn-primary" ng-click="tas.removeTA(person)">Remove</button></td>
+            <td><button class="btn-primary" ng-click="tas.removeTA(id)">Remove</button></td>
             <td><input class="checkbox" type="checkbox" ng-checked={{person.current}}></td>
           </tr>
         </tbody>
