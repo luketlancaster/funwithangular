@@ -17,9 +17,34 @@ angular
         controller: 'ShowController',
         controllerAs: 'show'
       })
+      .when('/tas/:uuid/edit', {
+        templateUrl: 'views/form.html',
+        controller: 'EditController',
+        controllerAs: 'tas'
+      })
       .otherwise({
         redirectTo: '/tas'
       });
+  })
+  .controller('EditController', function ($routeParams, $http, $location){
+    var vm = this,
+        id = $routeParams.uuid;
+
+    $http
+      .get('https://angularz.firebaseio.com/tas/' + id +'/.json')
+      .success(function (data){
+        vm.newTA = data;
+      });
+
+      vm.addOrEditTA = function () {
+        $http
+          .put('https://angularz.firebaseio.com/tas/' + id +'/.json',
+              vm.newTA
+            )
+          .success(function (data){
+            $location.path('/tas');
+          });
+    };
   })
   .controller('ShowController', function ($routeParams, $http){
     var vm = this,
@@ -42,7 +67,7 @@ angular
 
     vm.newTA = {};
 
-    vm.addTA = function () {
+    vm.addOrEditTA = function () {
 
       vm.newTA.name = vm.newTA.name;
       vm.newTA.firstName = vm.newTA.firstName;

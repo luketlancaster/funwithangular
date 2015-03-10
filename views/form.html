@@ -1,5 +1,5 @@
 <h2>New TA:</h2>
-<form class="form" name="tas.newTAForm" ng-submit="tas.addTA()" novalidate>
+<form class="form" name="tas.newTAForm" ng-submit="tas.addOrEditTA()" novalidate>
   <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
     <label class="control-label">First Name</label>
     <input class="form-control" ng-model="tas.newTA.firstName" required minlength=4>
