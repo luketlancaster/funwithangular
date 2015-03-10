@@ -1,3 +1,5 @@
+'use strict';
+
 angular
   .module('tas', ['ngRoute'])
   .config(function ($routeProvider){
@@ -26,44 +28,86 @@ angular
         redirectTo: '/tas'
       });
   })
-  .controller('EditController', function ($routeParams, $http, $location){
+  .service('taService', function ($http) {
+    var tas = {},
+        FIREBASE_URL = 'https://angularz.firebaseio.com';
+
+    tas.findOne = function (id, cb) {
+      $http
+        .get(FIREBASE_URL + '/tas/' + id + '/.json')
+        .success(function (data){
+          cb(data);
+        });
+    };
+
+    tas.findAll = function (cb) {
+    $http
+      .get(FIREBASE_URL + '/tas.json')
+      .success(function (data){
+        cb(data);
+      });
+    };
+
+    tas.create = function (data, cb) {
+      $http
+        .post(FIREBASE_URL + '/tas.json', data)
+        .success(function (res) {
+          cb(res);
+        });
+    };
+
+    tas.delete = function (id, cb) {
+      var url = FIREBASE_URL + '/tas/' + id + '/.json';
+       $http
+         .delete(url)
+         .success(function (){
+          cb();
+        });
+    };
+
+    tas.update = function (id, data, cb) {
+      var url = FIREBASE_URL + '/tas/' + id + '/.json';
+
+      $http
+        .put(url, data)
+        .success(function (res) {
+          if (typeof cb === 'function') {
+            cb(res);
+          }
+        });
+    };
+
+    return tas;
+  })
+  .controller('EditController', function ($routeParams, $location, taService){
     var vm = this,
         id = $routeParams.uuid;
 
-    $http
-      .get('https://angularz.firebaseio.com/tas/' + id +'/.json')
-      .success(function (data){
-        vm.newTA = data;
-      });
+    taService.findOne(id, function (ta) {
+      vm.newTA = ta;
+    });
 
       vm.addOrEditTA = function () {
-        $http
-          .put('https://angularz.firebaseio.com/tas/' + id +'/.json',
-              vm.newTA
-            )
-          .success(function (data){
-            $location.path('/tas');
-          });
-    };
+        taService.update(id, vm.newTA, function (){
+          $location.path('/tas');
+        });
+      };
   })
-  .controller('ShowController', function ($routeParams, $http){
+  .controller('ShowController', function ($routeParams, taService){
     var vm = this,
         id = $routeParams.uuid;
 
-    $http
-      .get('https://angularz.firebaseio.com/tas/' + id +'/.json')
-      .success(function (data){
-        vm.ta = data;
-      });
+    taService.findOne(id, function (ta) {
+      vm.ta = ta;
+    });
+
   })
-  .controller('TasController', function ($scope, $http, $location) {
+  .controller('TasController', function ($location, taService) {
     var vm = this;
 
-    $http
-      .get('https://angularz.firebaseio.com/tas.json')
-      .success(function (data){
-        vm.data = data;
-      });
+    taService.findAll(function (tas){
+      vm.data = tas;
+    });
 
     vm.newTA = {};
 
@@ -76,27 +120,21 @@ angular
       vm.newTA.cohort = vm.newTA.cohort;
       vm.newTA.image = vm.newTA.image;
 
-      $http.post('https://angularz.firebaseio.com/tas.json', vm.newTA)
-        .success(function (data) {
-          vm.data[data.name] = vm.newTA;
-          $location.path('/tas');
-        });
+      taService.create(vm.newTA, function (res) {
+        vm.data[res.name] = vm.newTA;
+        $location.path('/tas');
+      });
     };
 
     vm.removeTA = function (id) {
-      var url = 'https://angularz.firebaseio.com/tas/' + id +'/.json';
-       $http
-         .delete(url)
-         .success(function (){
-          delete vm.data[id];
-         });
-       };
+      taService.delete(id, function () {
+        delete vm.data[id];
+      });
+    };
 
 
     vm.updateTA = function (id) {
-      var url = 'https://angularz.firebaseio.com/tas/' + id +'/.json';
-      $http
-        .put(url, vm.data[id]);
+      taService.update(id, vm.data[id]);
     };
 
     vm.editTA = function (person) {
