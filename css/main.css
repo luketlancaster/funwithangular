@@ -26,6 +26,14 @@ img {
   width: 400px;
 }
 
+.smallImage {
+  width: 40px;
+}
+
+.previewImg {
+  width: 100px;
+}
+
 /*input.ng-dirty {
   background: seashell;
 }*/

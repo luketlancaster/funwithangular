@@ -18,8 +18,9 @@
     <input class="form-control" ng-model="tas.newTA.nickName" required>
     <span class="help-block" ng-show="tas.newTAForm.lastName.$error && tas.newTAForm.$dirty">Provide a nick name</span>
   <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
-    <label class="control-label">Image</label>
-    <input class="form-control" ng-model="tas.newTA.image" required>
+    <label class="control-label">Image URL</label>
+    <input type="url" class="form-control" ng-model="tas.newTA.image" required>
+    <img class="previewImg" ng-show="tas.newTA.image" ng-model="tas.newTA.image" src="{{tas.newTA.image}}">
   </div>
   </div>
   <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
