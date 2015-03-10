@@ -2,11 +2,33 @@ angular
   .module('tas', ['ngRoute'])
   .config(function ($routeProvider){
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/table.html'
+      .when('/tas', {
+        templateUrl: 'views/table.html',
+        controller: 'TasController',
+        controllerAs: 'tas'
       })
-      .when('/new', {
-        templateUrl: 'views/form.html'
+      .when('/tas/new', {
+        templateUrl: 'views/form.html',
+        controller: 'TasController',
+        controllerAs: 'tas'
+      })
+      .when('/tas/:uuid', {
+        templateUrl: 'views/show.html',
+        controller: 'ShowController',
+        controllerAs: 'show'
+      })
+      .otherwise({
+        redirectTo: '/tas'
+      });
+  })
+  .controller('ShowController', function ($routeParams, $http){
+    var vm = this,
+        id = $routeParams.uuid;
+
+    $http
+      .get('https://angularz.firebaseio.com/tas/' + id +'/.json')
+      .success(function (data){
+        vm.ta = data;
       });
   })
   .controller('TasController', function ($scope, $http) {
@@ -27,6 +49,7 @@ angular
       vm.newTA.lastName = vm.newTA.lastName;
       vm.newTA.nickName = vm.newTA.nickName;
       vm.newTA.cohort = vm.newTA.cohort;
+      vm.newTA.image = vm.newTA.image;
 
       $http.post('https://angularz.firebaseio.com/tas.json', vm.newTA)
         .success(function (data) {

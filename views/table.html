@@ -1,6 +1,6 @@
 Search: <input ng-model="friendFilterQuery">
 Sort:
-<button ng-click="friendReverse=!friendReverse">Change Sort</button>
+<button class="btn btn-warning" ng-click="friendReverse=!friendReverse">Change Sort</button>
 <br>
 <table class="table">
   <thead>
@@ -10,8 +10,9 @@ Sort:
       <td>Name Name</td>
       <td>Nick Name</td>
       <td>Cohort</td>
-      <td>Don't Click</td>
       <td>Current</td>
+      <td>Don't Click</td>
+      <td>Click</td>
     </tr>
   </thead>
   <tbody>
@@ -26,8 +27,13 @@ Sort:
       <td>{{person.name}}</td>
       <td>{{person.nickName}}</td>
       <td>{{person.cohort}}</td>
-      <td><button class="btn-primary" ng-click="tas.removeTA(id)">Remove</button></td>
       <td><input class="checkbox" type="checkbox" ng-change="tas.updateTA(id)" ng-model="person.current"></td>
+      <td>
+        <button class="btn btn-danger" ng-click="tas.removeTA(id)">Remove</button>
+      </td>
+      <td>
+        <a class="btn btn-info" href="/#/tas/{{id}}">View</a>
+      </td>
     </tr>
   </tbody>
 </table>

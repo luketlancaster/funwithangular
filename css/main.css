@@ -1,5 +1,9 @@
-h1 {
+h1 a {
 	color: cadetblue;
+}
+
+h1 a:hover {
+  color: cadetblue;
 }
 
 h2 {
@@ -16,6 +20,10 @@ table {
 
 .mainContent {
   margin-top: 10px;
+}
+
+img {
+  width: 400px;
 }
 
 /*input.ng-dirty {
