@@ -16,8 +16,9 @@
     <![endif]-->
 
     <div class="container" ng-controller="TasController as tas">
-      <h1>My TAddress Book</h1>
-      <div ng-view></div>
+      <h1><a href="/#/">My TAddress Book</a></h1>
+      <a class="btn btn-primary" href="/#/new">New TA</a>
+      <div class="mainContent" ng-view></div>
     </div>
 
     <script src="bower_components/angular/angular.min.js"></script>
