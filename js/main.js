@@ -31,7 +31,7 @@ angular
         vm.ta = data;
       });
   })
-  .controller('TasController', function ($scope, $http) {
+  .controller('TasController', function ($scope, $http, $location) {
     var vm = this;
 
     $http
@@ -54,16 +54,9 @@ angular
       $http.post('https://angularz.firebaseio.com/tas.json', vm.newTA)
         .success(function (data) {
           vm.data[data.name] = vm.newTA;
-          _clearNewTA();
+          $location.path('/tas');
         });
     };
-
-
-    function _clearNewTA() {
-      vm.newTA = {};
-      $scope.newTAForm.$setPristine();
-    }
-
 
     vm.removeTA = function (id) {
       var url = 'https://angularz.firebaseio.com/tas/' + id +'/.json';
