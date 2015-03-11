@@ -1,0 +1,47 @@
+<h2>New TA:</h2>
+<form class="form" name="tas.newTAForm" ng-submit="tas.addOrEditTA()" novalidate>
+  <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
+    <label class="control-label">First Name</label>
+    <input class="form-control" ng-model="tas.newTA.firstName" required minlength=4>
+    <span class="help-block" ng-show="tas.newTAForm.$invalid && tas.newTAForm.$dirty">Nope. Not good enough</span>
+  </div>
+  <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
+    <label class="control-label">Last Name</label>
+    <input class="form-control" ng-model="tas.newTA.lastName" required>
+  </div>
+  <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
+    <label class="control-label">Name Name</label>
+    <input class="form-control" ng-model="tas.newTA.name" required>
+  </div>
+  <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
+    <label class="control-label">Nick Name</label>
+    <input class="form-control" ng-model="tas.newTA.nickName" required>
+    <span class="help-block" ng-show="tas.newTAForm.lastName.$error && tas.newTAForm.$dirty">Provide a nick name</span>
+  <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
+    <label class="control-label">Image URL</label>
+    <input type="url" class="form-control" ng-model="tas.newTA.image" required>
+    <img class="previewImg" ng-show="tas.newTA.image" ng-model="tas.newTA.image" src="{{tas.newTA.image}}">
+  </div>
+  </div>
+  <div class="form-group" ng-class="{'has-error': tas.newTAForm.$dirty}">
+    <label class="control-label">Current?
+      <input class="checkbox" type="checkbox" ng-model="tas.newTA.current">
+    </label>
+  </div>
+  <div class="form-group dropdown">
+    <label class="control-label">Cohort: </label>
+    <select class="selectpicker" ng-model="tas.newTA.cohort">
+      <option value=1>One</option>
+      <option value=2>Two</option>
+      <option value=3>Three</option>
+      <option value=4>Four</option>
+      <option value=5>Five</option>
+      <option value=6>Six</option>
+      <option value=7>Seven</option>
+      <option value=8>Eight</option>
+      <option value=9>Nine</option>
+      <option value=10>Ten</option>
+    </select>
+  </div>
+  <input class="btn" type="submit" value="Save" ng-disabled="tas.newTAForm.$invalid" ng-class="{'btn-danger': tas.newTAForm.$invalid, 'btn-success': tas.newTAForm.$valid}">
+</form>
