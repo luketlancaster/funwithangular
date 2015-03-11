@@ -1,17 +1,29 @@
 h1 a {
-	color: cadetblue;
+	color: #5dafb2;
 }
 
 h1 a:hover {
-  color: cadetblue;
+  color: #5d9ea1;
 }
 
-h2 {
-	color: saddlebrown;
+.register {
+  background-color: #5dafb2;
+  color: white;
+  border: solid 1px #5dafb2;
+}
+
+.register:hover {
+  background-color: #5d9ea1;
+  color: white;
+  border: solid 1px #5d9ea1;
 }
 
 .container {
 	margin: 0 5%;
+}
+
+.navIcon {
+  display: inline;
 }
 
 table {
@@ -33,7 +45,3 @@ img {
 .previewImg {
   width: 100px;
 }
-
-/*input.ng-dirty {
-  background: seashell;
-}*/
