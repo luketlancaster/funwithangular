@@ -12,8 +12,8 @@ Sort:
       <td>Nick Name</td>
       <td>Cohort</td>
       <td>Current</td>
-      <td>Don't Click</td>
-      <td>Click</td>
+      <td></td>
+      <td></td>
     </tr>
   </thead>
   <tbody>
@@ -28,10 +28,13 @@ Sort:
       <td>{{person.cohort}}</td>
       <td><input class="checkbox" type="checkbox" ng-change="tas.updateTA(id)" ng-model="person.current"></td>
       <td>
-        <button class="btn btn-danger" ng-click="tas.removeTA(id)">Remove</button>
+        <button class="btn btn-danger" ng-click="tas.removeTA(id)"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
       </td>
       <td>
-        <a class="btn btn-info" href="/#/tas/{{id}}">View</a>
+        <a class="btn btn-info" href="/#/tas/{{id}}"><span class="glyphicon glyphicon-search" aria-hidden="true"></a>
+      </td>
+      <td>
+        <a class="btn btn-success" href="/#/tas/{{id}}/edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
       </td>
     </tr>
   </tbody>
