@@ -5,6 +5,8 @@ angular
 function AuthController($scope, $location, authFactory, BASE_URL) {
   var vm = this;
 
+  vm.user = {};
+
   vm.login = function () {
 
     authFactory.login(vm.user, function (err, authData){
