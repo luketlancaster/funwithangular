@@ -2,7 +2,7 @@ angular
   .module('tas')
   .controller('AuthController', AuthController)
 
-function AuthController($scope, $location, authFactory, BASE_URL) {
+function AuthController($rootScope, $scope, $location, authFactory) {
   var vm = this;
 
   vm.user = {};
@@ -14,6 +14,7 @@ function AuthController($scope, $location, authFactory, BASE_URL) {
         console.log('Cant log in!', err);
       } else {
         console.log('Logged in successfully!', authData);
+        $rootScope.user = authData;
         $location.path('/tas');
         $scope.$apply();
       }

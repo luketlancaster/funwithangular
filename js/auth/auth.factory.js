@@ -10,6 +10,12 @@ function authFactory(BASE_URL) {
       return !!fb.getAuth();
     },
 
+    getAuth: function () {
+      var fb = new Firebase(BASE_URL);
+
+      return fb.getAuth();
+    },
+
     resetPassword: function (user, cb) {
       var fb = new Firebase(BASE_URL);
 
